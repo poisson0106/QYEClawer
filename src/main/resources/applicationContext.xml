@@ -11,7 +11,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.sqlite.JDBC" />
-        <property name="url" value="jdbc:sqlite:C:/sjwdownload/qy.sqlite" />
+        <property name="url" value="jdbc:sqlite:classpath:qy.sqlite" />
     </bean>
     
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -20,7 +20,7 @@
     </bean>
     
     
-    <bean id="dataDao" class="com.sjw.bookcapture.daoImpl.DataDao">
+    <bean id="dataDao" class="com.sjw.bookcapture.daoImpl.DataDaoImpl">
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
