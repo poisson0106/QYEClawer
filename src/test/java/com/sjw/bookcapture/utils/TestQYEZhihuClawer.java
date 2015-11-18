@@ -11,8 +11,10 @@ public class TestQYEZhihuClawer {
 		thisClawer = new QYEZhihuClawer();
 	}
 	
+	
 	@Test
 	public void testCatchAndUpdateZhihu() throws Exception{
-		thisClawer.catchAndUpdateZhihu();
+		String url="http://www.zhihu.com/people/autumnflutter";
+		thisClawer.catchAndUpdateZhihu(url);
 	}
 }
