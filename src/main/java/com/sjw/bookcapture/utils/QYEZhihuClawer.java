@@ -2,7 +2,6 @@ package com.sjw.bookcapture.utils;
 
 import java.util.ArrayList;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.jsoup.Connection;
@@ -14,16 +13,15 @@ import org.jsoup.select.Elements;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sjw.bookcapture.pojo.ZhihuPojo;
 import com.sjw.bookcapture.service.DataService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/applicationContext.xml", "/spring-security.xml"})
-public class QYEZhihuClawer {
-	@Autowired
-	ApplicationContext ctx;
-	
+
+public class QYEZhihuClawer{
 	@Autowired
 	DataService dataService;
 	

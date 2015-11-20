@@ -29,5 +29,6 @@
 	<context:component-scan base-package="com.sjw.bookcapture.controller" />
 	<context:component-scan base-package="com.sjw.bookcapture.serviceImpl" />
 	<context:component-scan base-package="com.sjw.bookcapture.daoImpl" />
+	<context:component-scan base-package="com.sjw.bookcapture.utils"/>
 	
 </beans:beans>
