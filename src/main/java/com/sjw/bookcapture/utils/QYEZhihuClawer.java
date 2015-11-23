@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.sjw.bookcapture.pojo.ZhihuPojo;
 import com.sjw.bookcapture.service.DataService;
 
-
 public class QYEZhihuClawer{
 	@Autowired
 	DataService dataService;
@@ -43,21 +42,21 @@ public class QYEZhihuClawer{
 				thisPojo.setQtime(el.select(".zm-profile-setion-time").html());
 				
 				String tmpContent = el.select(".zm-profile-section-main").html();
-				if(tmpContent.contains("ÔŞÍ¬ÁË»Ø´ğ"))
-					thisPojo.setQtype("ÔŞÍ¬ÁË»Ø´ğ");
-				else if(tmpContent.contains("¹Ø×¢ÁËÎÊÌâ")){
-					thisPojo.setQtype("¹Ø×¢ÁËÎÊÌâ");
+				if(tmpContent.contains("èµåŒäº†å›ç­”"))
+					thisPojo.setQtype("èµåŒäº†å›ç­”");
+				else if(tmpContent.contains("å…³æ³¨äº†é—®é¢˜")){
+					thisPojo.setQtype("å…³æ³¨äº†é—®é¢˜");
 					thisPojo.setQtitle(el.select(".question_link").html());
 					thisPojo.setQhref(prefix+el.select(".question_link").attr("href"));
 					newActivities.add(thisPojo);
 					continue;
 				}
-				else if(tmpContent.contains("»Ø´ğ"))
-					thisPojo.setQtype("»Ø´ğÁËÎÊÌâ");
-				else if(tmpContent.contains("ÔŞÍ¬ÁËÎÄÕÂ"))
-					thisPojo.setQtype("ÔŞÍ¬ÁËÎÄÕÂ");
-				else if(tmpContent.contains("¹Ø×¢ÁË×¨À¸")){
-					thisPojo.setQtype("¹Ø×¢ÁË×¨À¸");
+				else if(tmpContent.contains("å›ç­”"))
+					thisPojo.setQtype("å›ç­”äº†é—®é¢˜");
+				else if(tmpContent.contains("èµåŒäº†æ–‡ç« "))
+					thisPojo.setQtype("èµåŒäº†æ–‡ç« ");
+				else if(tmpContent.contains("å…³æ³¨äº†ä¸“æ ")){
+					thisPojo.setQtype("å…³æ³¨äº†ä¸“æ ");
 					thisPojo.setQtitle(el.select(".column_link").html());
 					thisPojo.setQhref(el.select(".column_link").attr("href"));
 					newActivities.add(thisPojo);
