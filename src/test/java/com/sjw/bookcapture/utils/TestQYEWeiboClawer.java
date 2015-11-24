@@ -14,7 +14,7 @@ public class TestQYEWeiboClawer {
 	
 	@Test
 	public void testCatchAndUpdateWeibo() throws Exception{
-		String url="http://www.weibo.com/p/1005052152564780";
+		String url="http://weibo.com/kaikai0818";
 		thisWeiboClawer.catchAndUpdateWeibo(url);
 	}
 	
