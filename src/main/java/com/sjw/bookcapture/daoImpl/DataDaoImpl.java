@@ -18,13 +18,13 @@ public class DataDaoImpl extends SqlSessionDaoSupport implements DataDao {
 
 	@Override
 	public void catchZhihuDataDao(List<ZhihuPojo> thisList) throws Exception {
-		//this.getSqlSession().insert("insertNewData", thisList);
+		this.getSqlSession().insert("insertNewData", thisList);
 
 		//Temp method to insert data. It's in a lower efficiency
-		Iterator<ZhihuPojo> i = thisList.iterator();
+		/*Iterator<ZhihuPojo> i = thisList.iterator();
 		while(i.hasNext()){
 			this.getSqlSession().insert("tmp",i.next());
-		}
+		}*/
 	}
 
 }
