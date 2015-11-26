@@ -7,7 +7,21 @@ public class WeiboPojo {
 	private String postDate;
 	private int commentsNum;
 	private int goodNum;
+	private int forwardNum;
+	private String postBy;
 	
+	public int getForwardNum() {
+		return forwardNum;
+	}
+	public void setForwardNum(int forwardNum) {
+		this.forwardNum = forwardNum;
+	}
+	public String getPostBy() {
+		return postBy;
+	}
+	public void setPostBy(String postBy) {
+		this.postBy = postBy;
+	}
 	public String getName() {
 		return name;
 	}

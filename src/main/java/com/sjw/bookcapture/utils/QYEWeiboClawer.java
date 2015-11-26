@@ -1,7 +1,9 @@
 package com.sjw.bookcapture.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.jsoup.Connection;
@@ -10,7 +12,10 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+
+import com.sjw.bookcapture.pojo.WeiboPojo;
 
 public class QYEWeiboClawer {
 	public void catchAndUpdateWeibo(String url) throws Exception{
@@ -35,15 +40,37 @@ public class QYEWeiboClawer {
 			}
 		}
 		if(bd!=null){
-			String start="\"html\":\"";
 			String end = "\"})</script>";
 			bd = bd.trim().substring(bd.indexOf("<div"), bd.indexOf(end));
 			Document ndoc = Jsoup.parse(bd);
-			//Elements els = ndoc.select(".WB_cardwrap.WB_feed_type.S_bg2");
-			Elements els = ndoc.select(".WB_text.W_f14");
+			Elements els = ndoc.select(".WB_cardwrap.WB_feed_type.S_bg2");
+			List<WeiboPojo> newWeibo = new ArrayList<WeiboPojo>();
 			Iterator<Element> i = els.iterator();
 			while(i.hasNext()){
-				System.out.println(i.next().html());
+				//Get Main Content
+				WeiboPojo thisWeibo = new WeiboPojo();
+				Element thisEl = i.next();
+				if(thisEl.getElementsByClass("W_f14") != null){
+					Elements mainContent = thisEl.select(".WB_text.W_f14");
+					if(thisEl.getElementsByClass("W_icon_feedhot") != null)
+						thisEl.getElementsByClass("W_icon_feedhot").remove();
+					thisWeibo.setInfo(mainContent.html());
+					
+				}
+				if(thisEl.getElementsByClass("WB_media_wrap") != null){
+					Elements picContent = thisEl.select(".WB_pic.S_bg1.bigcursor");
+					Iterator<Element> pics = picContent.iterator();
+					String hrefList=null;
+					while(pics.hasNext()){
+						Element pic = pics.next();
+						if(hrefList == null)
+							hrefList = pic.childNode(0).attr("src");
+						else
+							hrefList = hrefList+","+pic.childNode(0).attr("src");
+					}
+					thisWeibo.setPicHref(hrefList);
+				}
+				newWeibo.add(thisWeibo);
 			}
 		}
 		/*Elements els = ndoc.select(".WB_cardwrap");
