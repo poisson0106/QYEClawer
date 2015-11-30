@@ -9,7 +9,14 @@ public class WeiboPojo {
 	private int goodNum;
 	private int forwardNum;
 	private String postBy;
+	private int refWeibo;
 	
+	public int getRefWeibo() {
+		return refWeibo;
+	}
+	public void setRefWeibo(int refWeibo) {
+		this.refWeibo = refWeibo;
+	}
 	public int getForwardNum() {
 		return forwardNum;
 	}

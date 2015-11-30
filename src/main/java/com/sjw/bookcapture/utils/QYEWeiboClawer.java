@@ -18,6 +18,9 @@ import org.jsoup.select.Elements;
 import com.sjw.bookcapture.pojo.WeiboPojo;
 
 public class QYEWeiboClawer {
+	
+	private List<WeiboPojo> newWeibo;
+	
 	public void catchAndUpdateWeibo(String url) throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("Apache", "3471694940278.2993.1448354185283");
@@ -44,33 +47,11 @@ public class QYEWeiboClawer {
 			bd = bd.trim().substring(bd.indexOf("<div"), bd.indexOf(end));
 			Document ndoc = Jsoup.parse(bd);
 			Elements els = ndoc.select(".WB_cardwrap.WB_feed_type.S_bg2");
-			List<WeiboPojo> newWeibo = new ArrayList<WeiboPojo>();
+			newWeibo = new ArrayList<WeiboPojo>();
 			Iterator<Element> i = els.iterator();
 			while(i.hasNext()){
-				//Get Main Content
-				WeiboPojo thisWeibo = new WeiboPojo();
 				Element thisEl = i.next();
-				if(thisEl.getElementsByClass("W_f14") != null){
-					Elements mainContent = thisEl.select(".WB_text.W_f14");
-					if(thisEl.getElementsByClass("W_icon_feedhot") != null)
-						thisEl.getElementsByClass("W_icon_feedhot").remove();
-					thisWeibo.setInfo(mainContent.html());
-					
-				}
-				if(thisEl.getElementsByClass("WB_media_wrap") != null){
-					Elements picContent = thisEl.select(".WB_pic.S_bg1.bigcursor");
-					Iterator<Element> pics = picContent.iterator();
-					String hrefList=null;
-					while(pics.hasNext()){
-						Element pic = pics.next();
-						if(hrefList == null)
-							hrefList = pic.childNode(0).attr("src");
-						else
-							hrefList = hrefList+","+pic.childNode(0).attr("src");
-					}
-					thisWeibo.setPicHref(hrefList);
-				}
-				newWeibo.add(thisWeibo);
+				this.analysisContent(thisEl,false);
 			}
 		}
 		/*Elements els = ndoc.select(".WB_cardwrap");
@@ -78,5 +59,57 @@ public class QYEWeiboClawer {
 		while(i.hasNext()){
 			System.out.println(i.next().html());
 		}*/
+	}
+	
+	public int analysisContent(Element thisEl, Boolean isFw){
+		int index=0;
+		WeiboPojo thisWeibo = new WeiboPojo();
+		
+		//Get Main Content
+		if(!thisEl.getElementsByClass("W_f14").isEmpty()){
+			Elements mainContent = thisEl.select(".WB_text.W_f14");
+			if(thisEl.getElementsByClass("W_icon_feedhot") != null)
+				thisEl.getElementsByClass("W_icon_feedhot").remove();
+			thisWeibo.setInfo(mainContent.html());
+		}
+		else if(!thisEl.getElementsByClass("WB_text").isEmpty()){
+			Elements mainContent = thisEl.getElementsByClass("WB_text");
+			//System.out.println(mainContent.html());
+			thisWeibo.setInfo(mainContent.html());
+		}
+		
+		//Get the media information under this weibo(without forward)
+		if((!thisEl.getElementsByClass("WB_media_wrap").isEmpty() && thisEl.getElementsByClass("WB_feed_expand").isEmpty())||
+		   (!thisEl.getElementsByClass("WB_feed_expand").isEmpty() && isFw && !thisEl.getElementsByClass("WB_media_wrap").isEmpty())){
+			Elements picContent = null;
+			if(isFw)
+				picContent = thisEl.select(".WB_pic.S_bg2");
+			else
+				picContent = thisEl.select(".WB_pic.S_bg1");
+			Iterator<Element> pics = picContent.iterator();
+			String hrefList=null;
+			while(pics.hasNext()){
+				Element pic = pics.next();
+				if(hrefList == null)
+					hrefList = pic.childNode(0).attr("src");
+				else
+					hrefList = hrefList+","+pic.childNode(0).attr("src");
+			}
+			System.out.println(hrefList);
+			thisWeibo.setPicHref(hrefList);
+		}
+		
+		if(!thisEl.select(".WB_feed_expand").isEmpty()){
+			Elements fwEls = thisEl.getElementsByClass("WB_feed_expand");
+			Element fwEl = fwEls.first();
+			if(!isFw)
+				index = this.analysisContent(fwEl,true);
+		}
+		
+		thisWeibo.setRefWeibo(index);
+		
+		newWeibo.add(thisWeibo);
+							
+		return index;
 	}
 }
