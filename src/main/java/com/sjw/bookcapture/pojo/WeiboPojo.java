@@ -10,7 +10,14 @@ public class WeiboPojo {
 	private int forwardNum;
 	private String postBy;
 	private int refWeibo;
+	private String uid;
 	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public int getRefWeibo() {
 		return refWeibo;
 	}

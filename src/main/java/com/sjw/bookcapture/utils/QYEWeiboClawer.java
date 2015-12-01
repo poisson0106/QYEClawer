@@ -1,10 +1,12 @@
 package com.sjw.bookcapture.utils;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
@@ -21,7 +23,7 @@ public class QYEWeiboClawer {
 	
 	private List<WeiboPojo> newWeibo;
 	
-	public void catchAndUpdateWeibo(String url) throws Exception{
+	public List<WeiboPojo> catchAndUpdateWeibo(String url) throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("Apache", "3471694940278.2993.1448354185283");
 		map.put("SINAGLOBAL", "6702268402505.439.1448353421592");
@@ -54,15 +56,13 @@ public class QYEWeiboClawer {
 				this.analysisContent(thisEl,false);
 			}
 		}
-		/*Elements els = ndoc.select(".WB_cardwrap");
-		Iterator<Element> i = els.iterator();
-		while(i.hasNext()){
-			System.out.println(i.next().html());
-		}*/
+		
+		return newWeibo;
+		
 	}
 	
-	public int analysisContent(Element thisEl, Boolean isFw){
-		int index=0;
+	private String analysisContent(Element thisEl, Boolean isFw){
+		String uid = null;
 		WeiboPojo thisWeibo = new WeiboPojo();
 		
 		//Get Main Content
@@ -95,21 +95,81 @@ public class QYEWeiboClawer {
 				else
 					hrefList = hrefList+","+pic.childNode(0).attr("src");
 			}
-			System.out.println(hrefList);
 			thisWeibo.setPicHref(hrefList);
 		}
 		
+		//The the device and time information
+		if(!thisEl.getElementsByClass("WB_from").isEmpty()){
+			Elements fromAndTimeEls = null;
+			Element fromEl = null;
+			Element timeEl =null;
+			
+			if(!thisEl.getElementsByClass("WB_detail").isEmpty())
+				fromAndTimeEls = thisEl.select(".WB_detail>.WB_from.S_txt2");
+			else
+				fromAndTimeEls = thisEl.select(".WB_from.S_txt2");
+			
+			//Time information
+			timeEl = fromAndTimeEls.first().child(0);
+			thisWeibo.setPostDate(timeEl.attr("title"));
+			// From information
+			fromEl = fromAndTimeEls.first().child(1);
+			thisWeibo.setPostBy(fromEl.html());
+		}
+		
+		//Get the good number,forward num and comment num
+		if(!thisEl.getElementsByClass("WB_feed_handle").isEmpty()){
+			Elements numEls = thisEl.select(".WB_row_line.WB_row_r4.clearfix.S_line2 pos");
+			Iterator<Element> i = numEls.iterator();
+			while(i.hasNext()){
+				Element thisNum = i.next();
+				String tmp = thisNum.child(0).html();
+				if(tmp.contains(" ")){
+					int num=0;
+					num = Integer.parseInt(tmp.substring(tmp.indexOf(" "), tmp.length()));
+					if(tmp.contains("转发"))
+						thisWeibo.setForwardNum(num);
+					else if(tmp.contains("评论"))
+						thisWeibo.setCommentsNum(num);
+					else
+						thisWeibo.setGoodNum(num);
+				}
+			}
+		}
+		else if(!thisEl.getElementsByClass("WB_handle").isEmpty()){
+			
+		}
+		
+		// Get the forward part information
 		if(!thisEl.select(".WB_feed_expand").isEmpty()){
 			Elements fwEls = thisEl.getElementsByClass("WB_feed_expand");
 			Element fwEl = fwEls.first();
-			if(!isFw)
-				index = this.analysisContent(fwEl,true);
+			if(!isFw){
+				thisWeibo.setUid(this.analysisContent(fwEl,true));
+				thisWeibo.setRefWeibo(WeiboType.FWCOMMENT.getNum());
+			}
+			else{
+				uid = this.generateUID();
+				thisWeibo.setUid(uid);
+				thisWeibo.setRefWeibo(WeiboType.FWCONTENT.getNum());
+			}
+		}
+		else{
+			thisWeibo.setRefWeibo(WeiboType.ORIGINAL.getNum());
 		}
 		
-		thisWeibo.setRefWeibo(index);
-		
-		newWeibo.add(thisWeibo);
-							
-		return index;
+		newWeibo.add(thisWeibo);			
+		return uid;
+	}
+	
+	private String generateUID(){
+		 String base = "abcdefghijklmnopqrstuvwxyz0123456789";     
+		 Random random = new Random();
+		 StringBuffer sb = new StringBuffer();
+		 for (int i = 0; i < 10; i++) {
+			 int number = random.nextInt(base.length());
+			 sb.append(base.charAt(number));
+		 }
+		 return sb.toString();
 	}
 }
