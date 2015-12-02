@@ -23,7 +23,7 @@ public class TestQYEWeiboClawer {
 		List<WeiboPojo> testPojoList = thisWeiboClawer.catchAndUpdateWeibo(url);
 		
 		//Test for list 
-		Iterator<WeiboPojo> i = testPojoList.iterator();
+		/*Iterator<WeiboPojo> i = testPojoList.iterator();
 		while(i.hasNext()){
 			WeiboPojo thisPojo = i.next();
 			System.out.println("=====================================");
@@ -48,7 +48,7 @@ public class TestQYEWeiboClawer {
 			System.out.println("The good num is:");
 			System.out.println(thisPojo.getGoodNum());
 			System.out.println("=====================================");
-		}
+		}*/
 	}
 	
 }

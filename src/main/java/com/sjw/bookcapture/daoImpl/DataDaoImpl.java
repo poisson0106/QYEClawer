@@ -9,21 +9,15 @@ import com.sjw.bookcapture.pojo.WeiboPojo;
 import com.sjw.bookcapture.pojo.ZhihuPojo;
 
 public class DataDaoImpl extends SqlSessionDaoSupport implements DataDao {
-
 	@Override
-	public void insertAllNewWeibo(List<WeiboPojo> toInsertList) throws Exception {
-		this.getSqlSession().insert("insertAllNewWeibo", toInsertList);
+	public void catchZhihuDataDao(List<ZhihuPojo> thisList) throws Exception {
+		this.getSqlSession().insert("insertNewZhihuData", thisList);
 	}
 
 	@Override
-	public void catchZhihuDataDao(List<ZhihuPojo> thisList) throws Exception {
-		this.getSqlSession().insert("insertNewData", thisList);
-
-		//Temp method to insert data. It's in a lower efficiency
-		/*Iterator<ZhihuPojo> i = thisList.iterator();
-		while(i.hasNext()){
-			this.getSqlSession().insert("tmp",i.next());
-		}*/
+	public void catchWeiboDataDao(List<WeiboPojo> thisList) throws Exception {
+		this.getSqlSession().insert("insertNewWeiboData",thisList);
+		
 	}
 
 }

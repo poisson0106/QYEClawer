@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sjw.bookcapture.pojo.WeiboPojo">
-	<insert id="insertAllNewWeibo" parameterType="java.util.List">
-		
+	<insert id="insertNewWeiboData" parameterType="java.util.List">
+		INSERT INTO QY_SINA
+		(NAME,INFO,PICHREF,POSTDATE,COMMENTSNUM,GOODNUM,FORWARDNUM,POSTBY,REFWEIBO,UID) VALUES 
+		<foreach collection="list" item="i" separator="," index="">
+		(#{i.name,jdbcType=VARCHAR},#{i.info,jdbcType=VARCHAR},#{i.picHref,jdbcType=VARCHAR},#{i.postDate,jdbcType=VARCHAR}
+		,#{i.commentsNum,jdbcType=INTEGER},#{i.goodNum,jdbcType=INTEGER},#{i.forwardNum,jdbcType=INTEGER},#{i.postBy,jdbcType=VARCHAR}
+		,#{i.refWeibo,jdbcType=VARCHAR},#{i.uid,jdbcType=INTEGER})
+		</foreach>
 	</insert>
 </mapper>

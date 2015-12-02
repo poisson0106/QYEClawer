@@ -14,10 +14,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sjw.bookcapture.pojo.WeiboPojo;
+import com.sjw.bookcapture.service.DataService;
 
 public class QYEWeiboClawer {
+	@Autowired
+	DataService dataService;
 	
 	private List<WeiboPojo> newWeibo;
 	
@@ -58,6 +62,8 @@ public class QYEWeiboClawer {
 				this.analysisContent(thisEl,false,nickname);
 			}
 		}
+		
+		this.dataService.catchWeiboDataService(newWeibo);
 		
 		return newWeibo;
 		
@@ -148,6 +154,7 @@ public class QYEWeiboClawer {
 			}
 		}
 		else{
+			thisWeibo.setName(nickname);
 			thisWeibo.setRefWeibo(WeiboType.ORIGINAL.getNum());
 		}
 		
@@ -173,7 +180,9 @@ public class QYEWeiboClawer {
 			if(thisNum.html().contains("转发") || thisNum.html().contains("评论")){
 				String tmp = thisNum.child(0).html();
 				int num=0;
-				num = Integer.parseInt(tmp.substring(tmp.indexOf(" "), tmp.length()).trim());
+				if(tmp.indexOf(" ")!=-1)
+					num = Integer.parseInt(tmp.substring(tmp.indexOf(" "), tmp.length()).trim());
+				
 				if(tmp.contains("转发"))
 					thisWeibo.setForwardNum(num);
 				else if(tmp.contains("评论"))
@@ -181,8 +190,10 @@ public class QYEWeiboClawer {
 			}
 			else if(thisNum.html().contains("<em>")){
 				String tmp = thisNum.child(0).child(0).child(1).html();
-				//System.out.println(thisNum);
-				thisWeibo.setGoodNum(Integer.parseInt(tmp));
+				if(!tmp.isEmpty())
+					thisWeibo.setGoodNum(Integer.parseInt(tmp));
+				else
+					thisWeibo.setGoodNum(0);
 			}
 		}
 	}

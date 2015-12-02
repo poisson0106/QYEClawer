@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sjw.bookcapture.dao.DataDao;
+import com.sjw.bookcapture.pojo.WeiboPojo;
 import com.sjw.bookcapture.pojo.ZhihuPojo;
 import com.sjw.bookcapture.service.DataService;
 
@@ -16,5 +17,11 @@ public class DataServiceImpl implements DataService {
 	
 	public void catchZhihuDataService(List<ZhihuPojo> thisList) throws Exception{
 		this.dataDao.catchZhihuDataDao(thisList);
+	}
+
+	@Override
+	public void catchWeiboDataService(List<WeiboPojo> thisList) throws Exception {
+		this.dataDao.catchWeiboDataDao(thisList);
+		
 	}
 }
