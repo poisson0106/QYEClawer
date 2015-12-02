@@ -1,6 +1,5 @@
 package com.sjw.bookcapture.daoImpl;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;

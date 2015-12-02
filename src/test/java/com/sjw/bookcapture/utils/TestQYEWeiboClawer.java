@@ -27,6 +27,8 @@ public class TestQYEWeiboClawer {
 		while(i.hasNext()){
 			WeiboPojo thisPojo = i.next();
 			System.out.println("=====================================");
+			System.out.println("Name is:");
+			System.out.println(thisPojo.getName());
 			System.out.println("Content is:");
 			System.out.println(thisPojo.getInfo());
 			System.out.println("The ref pics are:");

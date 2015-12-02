@@ -1,6 +1,5 @@
 package com.sjw.bookcapture.utils;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,7 +13,6 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import com.sjw.bookcapture.pojo.WeiboPojo;
@@ -38,10 +36,14 @@ public class QYEWeiboClawer {
 		String tmp = doc.html().replaceAll("\\\\t", "").replaceAll("\\\\n", "").replaceAll("\\\\r", "").replaceAll("\\\\", "").replaceAll("  ", "");
 		String[] a = tmp.split("<script>FM.view");
 		String bd = null;
+		String nickname = null;
 		for(String b:a){
 			if(b.contains("WB_cardwrap WB_feed_type S_bg2")){
 				bd =b;
 				break;
+			}
+			else if(b.contains("username")){
+				nickname = b.substring(b.indexOf("\"username\">")+11,b.indexOf("</h1>"));
 			}
 		}
 		if(bd!=null){
@@ -53,7 +55,7 @@ public class QYEWeiboClawer {
 			Iterator<Element> i = els.iterator();
 			while(i.hasNext()){
 				Element thisEl = i.next();
-				this.analysisContent(thisEl,false);
+				this.analysisContent(thisEl,false,nickname);
 			}
 		}
 		
@@ -61,7 +63,7 @@ public class QYEWeiboClawer {
 		
 	}
 	
-	private String analysisContent(Element thisEl, Boolean isFw){
+	private String analysisContent(Element thisEl, Boolean isFw,String nickname){
 		String uid = null;
 		WeiboPojo thisWeibo = new WeiboPojo();
 		
@@ -119,25 +121,13 @@ public class QYEWeiboClawer {
 		
 		//Get the good number,forward num and comment num
 		if(!thisEl.getElementsByClass("WB_feed_handle").isEmpty()){
-			Elements numEls = thisEl.select(".WB_row_line.WB_row_r4.clearfix.S_line2 pos");
-			Iterator<Element> i = numEls.iterator();
-			while(i.hasNext()){
-				Element thisNum = i.next();
-				String tmp = thisNum.child(0).html();
-				if(tmp.contains(" ")){
-					int num=0;
-					num = Integer.parseInt(tmp.substring(tmp.indexOf(" "), tmp.length()));
-					if(tmp.contains("转发"))
-						thisWeibo.setForwardNum(num);
-					else if(tmp.contains("评论"))
-						thisWeibo.setCommentsNum(num);
-					else
-						thisWeibo.setGoodNum(num);
-				}
-			}
+			Elements numEls = thisEl.select(".WB_row_line.WB_row_r4.clearfix.S_line2 .pos");
+			this.getNumInformation(numEls, thisWeibo);
+			
 		}
 		else if(!thisEl.getElementsByClass("WB_handle").isEmpty()){
-			
+			Elements numEls = thisEl.select(".WB_handle.W_fr .line.S_line1");
+			this.getNumInformation(numEls, thisWeibo);
 		}
 		
 		// Get the forward part information
@@ -145,11 +135,14 @@ public class QYEWeiboClawer {
 			Elements fwEls = thisEl.getElementsByClass("WB_feed_expand");
 			Element fwEl = fwEls.first();
 			if(!isFw){
-				thisWeibo.setUid(this.analysisContent(fwEl,true));
+				thisWeibo.setUid(this.analysisContent(fwEl,true,null));
 				thisWeibo.setRefWeibo(WeiboType.FWCOMMENT.getNum());
+				thisWeibo.setName(nickname);
 			}
 			else{
 				uid = this.generateUID();
+				String name = thisEl.child(1).child(0).child(0).attr("title");
+				thisWeibo.setName(name);
 				thisWeibo.setUid(uid);
 				thisWeibo.setRefWeibo(WeiboType.FWCONTENT.getNum());
 			}
@@ -171,5 +164,26 @@ public class QYEWeiboClawer {
 			 sb.append(base.charAt(number));
 		 }
 		 return sb.toString();
+	}
+	
+	private void getNumInformation(Elements numEls,WeiboPojo thisWeibo){
+		Iterator<Element> i = numEls.iterator();
+		while(i.hasNext()){
+			Element thisNum = i.next();
+			if(thisNum.html().contains("转发") || thisNum.html().contains("评论")){
+				String tmp = thisNum.child(0).html();
+				int num=0;
+				num = Integer.parseInt(tmp.substring(tmp.indexOf(" "), tmp.length()).trim());
+				if(tmp.contains("转发"))
+					thisWeibo.setForwardNum(num);
+				else if(tmp.contains("评论"))
+					thisWeibo.setCommentsNum(num);
+			}
+			else if(thisNum.html().contains("<em>")){
+				String tmp = thisNum.child(0).child(0).child(1).html();
+				//System.out.println(thisNum);
+				thisWeibo.setGoodNum(Integer.parseInt(tmp));
+			}
+		}
 	}
 }
