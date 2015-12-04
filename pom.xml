@@ -10,6 +10,7 @@
   	<org.springframework-version>4.2.3.RELEASE</org.springframework-version>
   	<org.aspectj-version>1.6.10</org.aspectj-version>
   	<org.slf4j-version>1.6.6</org.slf4j-version>
+  	<org.springsecurity-version>4.0.3.RELEASE</org.springsecurity-version>
   </properties>
   
   <dependencies>
@@ -148,6 +149,31 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
+		</dependency>
+		
+		<!-- Spring security -->
+		<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-web</artifactId>
+        	<version>${org.springsecurity-version}</version>
+    	</dependency>
+    	
+    	<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-config</artifactId>
+    		<version>${org.springsecurity-version}</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-crypto</artifactId>
+    		<version>${org.springsecurity-version}</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-messaging</artifactId>
+    		<version>${org.springsecurity-version}</version>
 		</dependency>
 		
   </dependencies>
