@@ -10,6 +10,10 @@
 <title>Login page</title>
 </head>
 <body>
-<h1>Hello World</h1>
+<form action="j_spring_security_check" method="post">
+<input type="text" name="j_username">
+<input type="password" name="j_password">
+<input type="submit" value="Submit">
+</form>
 </body>
 </html>

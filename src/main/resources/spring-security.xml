@@ -12,13 +12,13 @@
     <!-- Except login -->
     <!-- <http pattern="/Login.jsp" security="none"></http> -->
     
-    <http disable-url-rewriting="false">
+    <http disable-url-rewriting="false" auto-config="true">
 		<headers disabled="true"/>
 		<csrf disabled="true"/>
 
 		<intercept-url pattern="/login" access="permitAll"/>
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
-		<form-login login-page="/login"/>
+		<form-login login-page="/login" default-target-url="/loginOneUser" />
 		<logout logout-url="/j_spring_security_logout"/>
 	</http>
 	
