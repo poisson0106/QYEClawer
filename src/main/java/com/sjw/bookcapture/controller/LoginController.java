@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value="login",method=RequestMethod.GET)
+	@RequestMapping(value="loginInit",method=RequestMethod.GET)
 	public ModelAndView initialOneUser(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Login");
