@@ -21,15 +21,33 @@
 		<logout logout-url="/logout"/>
 	</http>
 	
-	<authentication-manager>
+	<!-- <authentication-manager>
 		<authentication-provider>
 			<user-service>
 				<user name="user" password="password" authorities="ROLE_USER" />
 				<user name="admin" password="password" authorities="ROLE_USER,ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
+	</authentication-manager> -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="authService"/>
 	</authentication-manager>
 	
 	<global-method-security pre-post-annotations="enabled" />
+	
+	<!-- Authentication service part -->
+	<beans:bean id="authService" class="com.sjw.bookcapture.serviceImpl.LoginServiceImpl"></beans:bean>
+	
+	<!-- Use usercache part-->
+	<beans:bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+		 <beans:property name="cache" ref="userEhCache" />
+	</beans:bean>
+	
+	<beans:bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">  
+    	<beans:property name="cacheName" value="userCache" />  
+    	<beans:property name="cacheManager" ref="cacheManager" />  
+	</beans:bean>
+	
+	<beans:bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />  
 
 </beans:beans>

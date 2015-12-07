@@ -1,6 +1,5 @@
 package com.sjw.bookcapture.utils;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;

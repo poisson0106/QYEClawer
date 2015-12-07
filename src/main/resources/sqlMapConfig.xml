@@ -4,9 +4,11 @@
 		<typeAliases>
                 <typeAlias type="com.sjw.bookcapture.pojo.WeiboPojo" alias="Weibo"/>
                 <typeAlias type="com.sjw.bookcapture.pojo.ZhihuPojo" alias="Zhihu"/>
+                <typeAlias type="com.sjw.bookcapture.pojo.UserPojo" alias="User"/>
         </typeAliases>
         <mappers>
                 <mapper resource="com/sjw/bookcapture/mapper/WeiboMapper.xml"/>
                 <mapper resource="com/sjw/bookcapture/mapper/ZhihuMapper.xml"/>
+                <mapper resource="com/sjw/bookcapture/mapper/UserMapper.xml"/>
         </mappers>
 </configuration>

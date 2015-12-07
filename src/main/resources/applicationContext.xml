@@ -25,11 +25,16 @@
         <property name="configLocation" value="classpath:sqlMapConfig.xml" />
     </bean>
     
-    
+   <!--  Dao part -->
     <bean id="dataDao" class="com.sjw.bookcapture.daoImpl.DataDaoImpl">
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
+    <bean id="loginDao" class="com.sjw.bookcapture.daoImpl.LoginDaoImpl">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+   <!--  Clawer Part -->
     <bean id="thisClawer" class="com.sjw.bookcapture.utils.QYEZhihuClawer"></bean>
     <bean id="thisWeiboClawer" class="com.sjw.bookcapture.utils.QYEWeiboClawer"></bean>
     

@@ -7,47 +7,73 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPojo implements UserDetails, Serializable {
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3090032311849391736L;
+	private String username;
+	private String password;
+	private boolean enabled;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private Collection<GrantedAuthority> authorities;
+	
+	public Collection<GrantedAuthority> getAuthorities() {
+		return authorities;
 	}
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setAuthorities(Collection<GrantedAuthority> authorities) {
+		this.authorities = authorities;
 	}
 
-	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return username;
 	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+	public String getPassword() {
+		return password;
 	}
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isAccountNonExpired() {
+		return accountNonExpired;
+	}
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return credentialsNonExpired;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
 }
