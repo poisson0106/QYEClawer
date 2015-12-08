@@ -1,16 +1,34 @@
 package com.sjw.bookcapture.pojo;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserPojo implements UserDetails, Serializable {
+public class UserPojo implements UserDetails{
 	
 	/**
 	 * 
 	 */
+	
+	public UserPojo(){
+		super();
+	}
+	
+
+	public UserPojo(String username, String password, boolean enabled, boolean accountNonExpired,
+			boolean accountNonLocked, boolean credentialsNonExpired, Collection<GrantedAuthority> authorities) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.authorities = authorities;
+	}
+
+
 	private static final long serialVersionUID = 3090032311849391736L;
 	private String username;
 	private String password;

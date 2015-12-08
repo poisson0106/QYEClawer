@@ -10,7 +10,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.sqlite.JDBC" />
-        <property name="url" value="jdbc:sqlite:src/main/resources/qy.sqlite" />
+        <property name="url" value="jdbc:sqlite::resource:qy.sqlite" />
     </bean>
     
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -30,7 +30,7 @@
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
-    <bean id="loginDao" class="com.sjw.bookcapture.daoImpl.LoginDaoImpl">
+    <bean id="authDao" class="com.sjw.bookcapture.daoImpl.AuthenticationDaoImpl">
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     

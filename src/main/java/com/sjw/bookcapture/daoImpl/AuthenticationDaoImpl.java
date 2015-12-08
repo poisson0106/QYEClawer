@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import com.sjw.bookcapture.dao.LoginDao;
+import com.sjw.bookcapture.dao.AuthenticationDao;
 import com.sjw.bookcapture.pojo.UserPojo;
 
-public class LoginDaoImpl extends SqlSessionDaoSupport implements LoginDao {
+public class AuthenticationDaoImpl extends SqlSessionDaoSupport implements AuthenticationDao {
 
 	@Override
 	public UserPojo getUserByUsername(String username) {

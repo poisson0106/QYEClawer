@@ -11,24 +11,40 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import com.sjw.bookcapture.dao.LoginDao;
+import com.sjw.bookcapture.dao.AuthenticationDao;
 import com.sjw.bookcapture.pojo.UserPojo;
-import com.sjw.bookcapture.service.LoginService;
+import com.sjw.bookcapture.service.AuthenticationService;
 
-public class LoginServiceImpl implements LoginService {
-	@Autowired
-	LoginDao loginDao;
+public class AuthenticationServiceImpl implements AuthenticationService {
 	
-	 @Autowired  
-	UserCache userCache; 
+	private AuthenticationDao authDao;
+	
+	/*private UserCache userCache;*/
+
+	public AuthenticationDao getAuthDao() {
+		return authDao;
+	}
+
+	public void setAuthDao(AuthenticationDao authDao) {
+		this.authDao = authDao;
+	}
+
+	/*public UserCache getUserCache() {
+		return userCache;
+	}
+
+	public void setUserCache(UserCache userCache) {
+		this.userCache = userCache;
+	}*/
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserPojo thisUser=(UserPojo)this.userCache.getUserFromCache(username);
-		if(thisUser ==null){
-			thisUser = loginDao.getUserByUsername(username);
-			List<String> thisAuthorities = loginDao.getserAuthorities(username);
+/*		UserPojo thisUser=(UserPojo)this.userCache.getUserFromCache(username);
+		if(thisUser ==null){*/
+			UserPojo thisUser = authDao.getUserByUsername(username);
+			List<String> thisAuthorities = authDao.getserAuthorities(username);
 			Collection<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
 			Iterator<String> i = thisAuthorities.iterator();
 			while(i.hasNext()){
@@ -37,12 +53,13 @@ public class LoginServiceImpl implements LoginService {
 			}
 			
 			thisUser.setAuthorities(authList);
-		}
+/*		}*/
 		System.out.println("-----------------");
 		System.out.println("Username is:"+thisUser.getUsername());
+		System.out.println("Authorities:"+thisUser.getAuthorities());
 		System.out.println("-----------------");
 		
-		this.userCache.putUserInCache(thisUser);
+		/*this.userCache.putUserInCache(thisUser);*/
 		
 		return thisUser;
 	}

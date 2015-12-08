@@ -5,7 +5,7 @@
 		SELECT * FROM TOOL_USER WHERE USERNAME=#{username}
 	</select>
 	
-	<select id="getserAuthorities" parameterType="string" resultType="list">
-		SELECT AUTHORITIES FROM TOOL_USER AS U,TOOL_ROLES AS R WHERE U.USERNAME=#{username} AND U.USERNAME = R.USERNAME
+	<select id="getserAuthorities" parameterType="string" resultType="string">
+		SELECT AUTHORITIES FROM TOOL_ROLES WHERE USERNAME=#{username}
 	</select>
 </mapper>
