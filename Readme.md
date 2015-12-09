@@ -3,6 +3,7 @@
 A tool used to scratch the information in Zhihu and Weibo for someone. Maybe it will add new function in the future. Although it has been useless already before it's finished. Since the original target can't be completed forever.......TOT
 </div>
 <h3>Today's update</h3>
+<li>12.09 Ehcache added finished. Try to use junit to test security part. Haved a really nightmare today. Hope it won't happen forever.</li>
 <li>12.08 Authentication from database finished. The Authorities key word still need to confirm. Still feel depressed today. Code is the way which will give you what you want if you code correct and input the right parameters.</li>
 <li>12.07 Switch authentication from setting in xml file to database. But the user cache still has a problem. It lacks one dependency and the central repository has been down. Need to update further.  <b>Have heard a big secret today.</b> Keep clam and just focus on coding. It's the only road.</li>
 <li>12.06 Add the basic authorization of this tool. I don't know why should I add this part. I just want to focus on some one in this project. It should be used only by myself. Why should I add ACL part? Maybe lonely. Maybe I just want to learn this technique. Maybe......I just want only me who can focus on some one. It's just a impracticable dream. Not matter which reasons, I begin to do this part. Though, it's still useless. 

@@ -34,10 +34,6 @@
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
-   <!--  Clawer Part -->
-    <bean id="thisClawer" class="com.sjw.bookcapture.utils.QYEZhihuClawer"></bean>
-    <bean id="thisWeiboClawer" class="com.sjw.bookcapture.utils.QYEWeiboClawer"></bean>
-    
     <!-- <bean id="mv" class="org.springframework.web.servlet.ModelAndView"></bean> -->
     
 </beans>

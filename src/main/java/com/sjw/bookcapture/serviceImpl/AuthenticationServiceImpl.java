@@ -21,7 +21,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	private AuthenticationDao authDao;
 	
-	/*private UserCache userCache;*/
+	private UserCache userCache;
 
 	public AuthenticationDao getAuthDao() {
 		return authDao;
@@ -31,19 +31,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		this.authDao = authDao;
 	}
 
-	/*public UserCache getUserCache() {
+	public UserCache getUserCache() {
 		return userCache;
 	}
 
 	public void setUserCache(UserCache userCache) {
 		this.userCache = userCache;
-	}*/
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-/*		UserPojo thisUser=(UserPojo)this.userCache.getUserFromCache(username);
-		if(thisUser ==null){*/
-			UserPojo thisUser = authDao.getUserByUsername(username);
+		UserPojo thisUser=(UserPojo)this.userCache.getUserFromCache(username);
+		if(thisUser ==null){
+			thisUser = authDao.getUserByUsername(username);
 			List<String> thisAuthorities = authDao.getserAuthorities(username);
 			Collection<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
 			Iterator<String> i = thisAuthorities.iterator();
@@ -53,13 +53,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			}
 			
 			thisUser.setAuthorities(authList);
-/*		}*/
+		}
 		System.out.println("-----------------");
 		System.out.println("Username is:"+thisUser.getUsername());
 		System.out.println("Authorities:"+thisUser.getAuthorities());
 		System.out.println("-----------------");
 		
-		/*this.userCache.putUserInCache(thisUser);*/
+		this.userCache.putUserInCache(thisUser);
 		
 		return thisUser;
 	}

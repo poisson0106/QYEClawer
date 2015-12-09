@@ -39,10 +39,11 @@
 	<!-- Authentication service part -->
 	<beans:bean id="authService" class="com.sjw.bookcapture.serviceImpl.AuthenticationServiceImpl">
 		<beans:property name="authDao" ref="authDao"/>
+		<beans:property name="userCache" ref="userCache" />
 	</beans:bean>
 	
 	<!-- Use usercache part-->
-	<!-- <beans:bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+	<beans:bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
 		 <beans:property name="cache" ref="userEhCache" />
 	</beans:bean>
 	
@@ -51,6 +52,6 @@
     	<beans:property name="cacheManager" ref="cacheManager" />  
 	</beans:bean>
 	
-	<beans:bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />   -->
+	<beans:bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />  
 
 </beans:beans>

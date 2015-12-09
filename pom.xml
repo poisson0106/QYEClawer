@@ -198,7 +198,7 @@
 		</dependency>
 		
 		<!-- User Cache part -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
     		<artifactId>spring-context-support</artifactId>
     		<version>${org.springframework-version}</version>
@@ -207,7 +207,7 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 			<version>2.10.1</version>
-		</dependency> -->
+		</dependency>
 		
   </dependencies>
   
