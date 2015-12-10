@@ -34,6 +34,5 @@ public class TestAuthenticationServiceImpl {
     
     @Test
     public void testLoadUserByUsername(){
-    	
     }
 }
