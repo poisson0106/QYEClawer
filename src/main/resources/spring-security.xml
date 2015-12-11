@@ -15,10 +15,13 @@
     <http disable-url-rewriting="false" auto-config="true">
 		<!-- <headers disabled="true"/> -->
 		<csrf disabled="true"/>
-
+		
+		<access-denied-handler error-page="/authFailed" />
 		<intercept-url pattern="/loginInit" access="permitAll"/>
-		<intercept-url pattern="/**" access="hasRole('USER')"/>
-		<form-login login-page="/loginInit" default-target-url="/loginOneUser" always-use-default-target="true" />
+		<intercept-url pattern="/loginOneUser" access="permitAll"/>
+		<intercept-url pattern="/authFailed" access="permitAll"/>
+		<intercept-url pattern="/**" access="hasRole('ADMIN')"/>
+		<form-login login-page="/loginInit" default-target-url="/loginRedirect" always-use-default-target="true" />
 		<logout logout-url="/logout"/>
 	</http>
 	
@@ -30,11 +33,16 @@
 			</user-service>
 		</authentication-provider>
 	</authentication-manager> -->
-	<authentication-manager>
+	<authentication-manager alias="authManager">
 		<authentication-provider user-service-ref="authService"/>
 	</authentication-manager>
 	
 	<global-method-security pre-post-annotations="enabled" />
+	
+	<!-- Access Deny Part -->
+	<!-- <beans:bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+		<beans:property name="errorPage" value="/errorpage"/>
+	</beans:bean> -->
 	
 	<!-- Authentication service part -->
 	<beans:bean id="authService" class="com.sjw.bookcapture.serviceImpl.AuthenticationServiceImpl">

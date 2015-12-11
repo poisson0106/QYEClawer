@@ -59,6 +59,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		System.out.println("Authorities:"+thisUser.getAuthorities());
 		System.out.println("-----------------");
 		
+		thisUser.setAccountNonLocked(true);
+		
 		this.userCache.putUserInCache(thisUser);
 		
 		return thisUser;

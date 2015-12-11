@@ -13,7 +13,7 @@
 </head>
 <body>
 <p>Authorication:<sec:authentication property="name"/></p>
-<c:url var="loginUrl" value="/login" />
+<c:url var="loginUrl" value="/loginOneUser" />
 <form action="${loginUrl}" method="post">
 <input type="text" name="username">
 <input type="password" name="password">

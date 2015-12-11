@@ -3,6 +3,7 @@
 A tool used to scratch the information in Zhihu and Weibo for someone. Maybe it will add new function in the future. Although it has been useless already before it's finished. Since the original target can't be completed forever.......TOT
 </div>
 <h3>Today's update</h3>
+<li>12.11 Changed the log system from log4j to logback. Added the access-error-handler. Switch the controller to authenticationController. Still have bug in sqlite. When selecting bool type from sqlite, it can't inject the boolean type in pojo. Another thing is login logic. When using the modelandview to redirect the link, it won't be limited by the spring security authentication. It needs to be fixed.</li>
 <li>12.10 Small changes. Add spring-security-test</li>
 <li>12.09 Ehcache added finished. Try to use junit to test security part. Haved a really nightmare today. Hope it won't happen forever.</li>
 <li>12.08 Authentication from database finished. The Authorities key word still need to confirm. Still feel depressed today. Code is the way which will give you what you want if you code correct and input the right parameters.</li>

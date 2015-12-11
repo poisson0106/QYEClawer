@@ -9,13 +9,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:applicationContext.xml","classpath:servlet-context.xml","classpath:spring-security.xml"})
-public class TestLoginController {
+public class TestAuthenticationController {
 	@Autowired
-	LoginController loginController;
+	AuthenticationController loginController;
 	
 	@Test
 	@WithMockUser
 	public void testLoginOneUser() throws Exception{
-		loginController.loginOneUser(null);
+		loginController.loginRedirect();
 	}
 }

@@ -12,7 +12,7 @@
     <!--and http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy-->
     <!--for further documentation-->
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-    	<FileNamePattern>log/myApp.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
+    	<FileNamePattern>/log/myApp.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
         <MaxHistory>30</MaxHistory>
     </rollingPolicy>   
     <encoder>
@@ -27,8 +27,10 @@
       <pattern>%d %c%n%-5p: %m%n</pattern>
     </encoder>
   </appender>
+  <logger name="com.sjw" level="DEBUG"/>
   <logger name="com.ibatis" level="DEBUG"/>
   <logger name="org.springframework" level="INFO"/>
+  <logger name="org.springframework.security" level="DEBUG"/>
   <logger name="java.sql.PreparedStatement" level="DEBUG">
     <appender-ref ref="file"/>
   </logger>
@@ -39,7 +41,7 @@
   <logger name="org.junit" level="DEBUG"/>
   <logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG"/>
   <logger name="java.sql.Connection" level="DEBUG"/>
-  <root level="DEBUG">
+  <root level="INFO">
     <appender-ref ref="stdout"/>
     <appender-ref ref="file"/>
   </root>
