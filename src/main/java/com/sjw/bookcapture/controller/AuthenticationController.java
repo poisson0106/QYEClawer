@@ -49,7 +49,7 @@ public class AuthenticationController {
 		Authentication authentication = authManager.authenticate(authRequest); //调用loadUserByUsername
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-	    mv.setViewName("/loginRedirect");
+	    mv.setViewName("index");
 		return mv;
 	}
 	

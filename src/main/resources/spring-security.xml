@@ -20,7 +20,7 @@
 		<intercept-url pattern="/loginInit" access="permitAll"/>
 		<intercept-url pattern="/loginOneUser" access="permitAll"/>
 		<intercept-url pattern="/authFailed" access="permitAll"/>
-		<intercept-url pattern="/**" access="hasRole('ADMIN')"/>
+		<intercept-url pattern="/**" access="hasRole('USER')"/>
 		<form-login login-page="/loginInit" default-target-url="/loginRedirect" always-use-default-target="true" />
 		<logout logout-url="/logout"/>
 	</http>
