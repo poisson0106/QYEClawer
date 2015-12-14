@@ -8,4 +8,12 @@
 	<select id="getserAuthorities" parameterType="string" resultType="string">
 		SELECT AUTHORITIES FROM TOOL_ROLES WHERE USERNAME=#{username}
 	</select>
+	
+	<insert id="registerOneUser" parameterType="User">
+		INSERT INTO TOOL_USER(USERNAME,PASSWORD) VALUES (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="registerRoles" parameterType="map">
+		INSERT INTO TOOL_ROLES(USERNAME,AUTHORITIES) VALUES (#{username,jdbcType=VARCHAR},#{authorities,jdbcType=VARCHAR});
+	</insert>
 </mapper>

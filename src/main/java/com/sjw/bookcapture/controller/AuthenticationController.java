@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,18 @@ public class AuthenticationController {
 		return mv;
 	}
 	
+	@RequestMapping(value="registerInit",method=RequestMethod.GET)
+	public ModelAndView initalRegister() throws Exception{
+		mv.setViewName("register");
+		return mv;
+	}
+	
+	@RequestMapping(value="authFailed",method=RequestMethod.GET)
+	public ModelAndView authFailed(){
+		mv.setViewName("errorpage");
+		return mv;
+	}
+	
 	@RequestMapping(value="loginOneUser",method=RequestMethod.POST)
 	public ModelAndView loginOneUser(HttpServletRequest request) throws Exception{
 		String username = request.getParameter("username");
@@ -53,9 +66,16 @@ public class AuthenticationController {
 		return mv;
 	}
 	
-	@RequestMapping(value="authFailed",method=RequestMethod.GET)
-	public ModelAndView authFailed(){
-		mv.setViewName("errorpage");
+	@RequestMapping(value="registerOneUser",method=RequestMethod.POST)
+	public ModelAndView registerOneUser(HttpServletRequest request) throws Exception{
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+		password = md5.encodePassword(password, username);
+		UserPojo thisUser = new UserPojo(username,password);
+		authenticationService.registerOneUserService(thisUser);
+		mv.setViewName("Login");
 		return mv;
 	}
+	
 }

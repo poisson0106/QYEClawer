@@ -1,6 +1,7 @@
 package com.sjw.bookcapture.daoImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -17,6 +18,18 @@ public class AuthenticationDaoImpl extends SqlSessionDaoSupport implements Authe
 	@Override
 	public List<String> getserAuthorities(String username) {
 		return this.getSqlSession().selectList("getserAuthorities", username);
+	}
+
+	@Override
+	public boolean registerOneUser(UserPojo thisUser) {
+		this.getSqlSession().insert("registerOneUser", thisUser);
+		return true;
+	}
+
+	@Override
+	public boolean registerRole(Map<String, String> role) {
+		this.getSqlSession().insert("registerRoles", role);
+		return true;
 	}
 	
 }

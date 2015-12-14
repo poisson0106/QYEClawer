@@ -17,8 +17,13 @@
 		<csrf disabled="true"/>
 		
 		<access-denied-handler error-page="/authFailed" />
+		<!-- login part -->
 		<intercept-url pattern="/loginInit" access="permitAll"/>
 		<intercept-url pattern="/loginOneUser" access="permitAll"/>
+		<!-- register part -->
+		<intercept-url pattern="/registerInit" access="permitAll"/>
+		<intercept-url pattern="/registerOneUser" access="permitAll"/>
+		
 		<intercept-url pattern="/authFailed" access="permitAll"/>
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
 		<form-login login-page="/loginInit" default-target-url="/loginRedirect" always-use-default-target="true" />
@@ -34,7 +39,11 @@
 		</authentication-provider>
 	</authentication-manager> -->
 	<authentication-manager alias="authManager">
-		<authentication-provider user-service-ref="authService"/>
+		<authentication-provider user-service-ref="authService">
+			<password-encoder hash="md5">
+				<salt-source user-property="username"/>
+			</password-encoder>
+		</authentication-provider>
 	</authentication-manager>
 	
 	<global-method-security pre-post-annotations="enabled" />
@@ -45,10 +54,7 @@
 	</beans:bean> -->
 	
 	<!-- Authentication service part -->
-	<beans:bean id="authService" class="com.sjw.bookcapture.serviceImpl.AuthenticationServiceImpl">
-		<beans:property name="authDao" ref="authDao"/>
-		<beans:property name="userCache" ref="userCache" />
-	</beans:bean>
+	<beans:bean id="authService" class="com.sjw.bookcapture.serviceImpl.AuthenticationServiceImpl"></beans:bean>
 	
 	<!-- Use usercache part-->
 	<beans:bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">

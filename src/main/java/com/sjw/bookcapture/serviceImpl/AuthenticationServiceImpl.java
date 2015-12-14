@@ -2,9 +2,13 @@ package com.sjw.bookcapture.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,26 +22,13 @@ import com.sjw.bookcapture.pojo.UserPojo;
 import com.sjw.bookcapture.service.AuthenticationService;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
-	
+	@Autowired
 	private AuthenticationDao authDao;
 	
+	@Autowired
 	private UserCache userCache;
-
-	public AuthenticationDao getAuthDao() {
-		return authDao;
-	}
-
-	public void setAuthDao(AuthenticationDao authDao) {
-		this.authDao = authDao;
-	}
-
-	public UserCache getUserCache() {
-		return userCache;
-	}
-
-	public void setUserCache(UserCache userCache) {
-		this.userCache = userCache;
-	}
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,14 +45,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			
 			thisUser.setAuthorities(authList);
 		}
-		System.out.println("-----------------");
-		System.out.println("Username is:"+thisUser.getUsername());
-		System.out.println("Authorities:"+thisUser.getAuthorities());
-		System.out.println("-----------------");
+		
+		logger.info("------------------");
+		logger.info("Username is:"+thisUser.getUsername());
+		logger.info("Authorities:"+thisUser.getAuthorities());
+		logger.info("------------------");
 				
 		this.userCache.putUserInCache(thisUser);
 		
 		return thisUser;
+	}
+
+	@Override
+	public Boolean registerOneUserService(UserPojo thisUser) {
+		if(authDao.registerOneUser(thisUser)){
+			Map<String,String> role = new HashMap<String,String>();
+			role.put("username", thisUser.getUsername());
+			role.put("authorities", "ROLE_USER");
+			authDao.registerRole(role);
+			return true;
+		}
+		else
+			return false;
 	}
 
 }

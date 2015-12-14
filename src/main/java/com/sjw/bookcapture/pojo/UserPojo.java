@@ -16,6 +16,18 @@ public class UserPojo implements UserDetails{
 	}
 	
 
+	public UserPojo(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = true;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+		this.credentialsNonExpired = true;
+		this.authorities = null;
+	}
+
+
 	public UserPojo(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean accountNonLocked, boolean credentialsNonExpired, Collection<GrantedAuthority> authorities) {
 		super();
