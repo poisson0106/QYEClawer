@@ -31,7 +31,7 @@ public class AuthenticationController {
 	@RequestMapping(value="loginInit",method=RequestMethod.GET)
 	public ModelAndView initialOneUser() throws Exception{
 		/*ModelAndView mv = new ModelAndView();*/
-		mv.setViewName("Login");
+		mv.setViewName("loginpage");
 		return mv;
 	}
 	
@@ -66,6 +66,15 @@ public class AuthenticationController {
 		return mv;
 	}
 	
+	@RequestMapping(value="loginOneUser",method=RequestMethod.GET)
+	public ModelAndView loginOneUserGet(HttpServletRequest request) throws Exception{
+		if(request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")==null)
+			mv.setViewName("loginpage");
+		else
+			mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping(value="registerOneUser",method=RequestMethod.POST)
 	public ModelAndView registerOneUser(HttpServletRequest request) throws Exception{
 		String username = request.getParameter("username");
@@ -74,7 +83,7 @@ public class AuthenticationController {
 		password = md5.encodePassword(password, username);
 		UserPojo thisUser = new UserPojo(username,password);
 		authenticationService.registerOneUserService(thisUser);
-		mv.setViewName("Login");
+		mv.setViewName("loginpage");
 		return mv;
 	}
 	

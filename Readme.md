@@ -3,6 +3,7 @@
 A tool used to scratch the information in Zhihu and Weibo for someone. Maybe it will add new function in the future. Although it has been useless already before it's finished. Since the original target can't be completed forever.......TOT
 </div>
 <h3>Today's update</h3>
+<li>12.15 Big update today. Using the framework7 to do the page. If it is necessary, using Hbulider to wrap the IOS application. Added the get Zhihu information from the database. Should add the remember me function further. Using the jstl in page temporary. If it is transferred to IOS, the jstl part should be replaced with ajax part. Remove the jquery part. Since framework7 has the dom library. Need to rearrange the structure of this project in the future. Till now, haven't any personal thinking needs to record. Maybe it's a good situation. Maybe.</li>
 <li>12.14 Added the password encording part and register part. Move the database file from the root category of the project. I haven't any party(?) this week. May proceed this project more quickly. With hope, hoping it to become better.</li>
 <li>12.11 Changed the log system from log4j to logback. Added the access-error-handler. Switch the controller to authenticationController. Still have bug in sqlite. When selecting bool type from sqlite, it can't inject the boolean type in pojo. Another thing is login logic. When using the modelandview to redirect the link, it won't be limited by the spring security authentication. It needs to be fixed.</li>
 <li>12.10 Small changes. Add spring-security-test</li>

@@ -39,6 +39,10 @@
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
+    <bean id="zhihuDao" class="com.sjw.bookcapture.daoImpl.ZhihuDaoImpl">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
     <bean id="mv" class="org.springframework.web.servlet.ModelAndView"></bean>
     
 </beans>

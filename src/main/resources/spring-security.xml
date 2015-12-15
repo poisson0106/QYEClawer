@@ -8,13 +8,14 @@
 	<http pattern="/css/**" security="none"></http>  
     <http pattern="/fonts/**" security="none"></http>
     <http pattern="/js/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
     
     <!-- Except login -->
     <!-- <http pattern="/Login.jsp" security="none"></http> -->
     
     <http disable-url-rewriting="false" auto-config="true">
 		<!-- <headers disabled="true"/> -->
-		<csrf disabled="true"/>
+		<!-- <csrf disabled="true"/> -->
 		
 		<access-denied-handler error-page="/authFailed" />
 		<!-- login part -->
@@ -28,6 +29,8 @@
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
 		<form-login login-page="/loginInit" default-target-url="/loginRedirect" always-use-default-target="true" />
 		<logout logout-url="/logout"/>
+		
+		<!-- <remember-me/> -->
 	</http>
 	
 	<!-- <authentication-manager>

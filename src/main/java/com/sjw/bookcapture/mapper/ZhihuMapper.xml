@@ -7,4 +7,8 @@
 			(#{i.name,jdbcType=VARCHAR},#{i.qtitle,jdbcType=VARCHAR},#{i.qhref,jdbcType=VARCHAR},#{i.qtype,jdbcType=VARCHAR},#{i.acontent,jdbcType=VARCHAR},#{i.qtime,jdbcType=VARCHAR})
 		</foreach>
 	</insert>
+	
+	<select id="getCertainInfo" parameterType="map" resultType="Zhihu">
+		SELECT * FROM QY_ZHIHU LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+	</select>
 </mapper>
