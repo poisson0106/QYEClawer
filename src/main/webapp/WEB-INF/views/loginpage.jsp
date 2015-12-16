@@ -23,7 +23,7 @@
 			<div class="page">
 				<!-- page-content has additional login-screen content -->
 				<div class="page-content login-screen-content">
-					<div class="login-screen-title">My App</div>
+					<div class="login-screen-title">QY</div>
 					<!-- Login form -->
 					<form action="${loginUrl}" method="post" id="loginForm">
 						<div class="list-block">
@@ -45,6 +45,17 @@
 												value="${_csrf.token}" />
 										</div>
 									</div>
+								</li>
+								<li>
+									<label class="label-checkbox item-content">
+										<input type="checkbox" name="rememberMe">
+										<div class="item-media">
+          									<i class="icon icon-form-checkbox"></i>
+        								</div>
+       									<div class="item-inner">
+          									<div class="item-title">Remember Me</div>
+        								</div>
+									</label>
 								</li>
 							</ul>
 						</div>

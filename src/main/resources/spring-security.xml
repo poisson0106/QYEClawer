@@ -30,7 +30,7 @@
 		<form-login login-page="/loginInit" default-target-url="/loginRedirect" always-use-default-target="true" />
 		<logout logout-url="/logout"/>
 		
-		<!-- <remember-me/> -->
+		<remember-me/>
 	</http>
 	
 	<!-- <authentication-manager>

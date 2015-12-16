@@ -14,7 +14,7 @@
 </div>
 <div class="pages">
   <!-- Page, data-page contains page name-->
-  <div data-page="about" class="page">
+  <div data-page="zhihuMain" class="page">
     <!-- Scrollable page content-->
     <div class="page-content">
         <c:choose>
