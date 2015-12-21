@@ -48,7 +48,7 @@
 								</li>
 								<li>
 									<label class="label-checkbox item-content">
-										<input type="checkbox" name="rememberMe">
+										<input type="checkbox" id="remember-me" name="remember-me" value="true">
 										<div class="item-media">
           									<i class="icon icon-form-checkbox"></i>
         								</div>
@@ -63,8 +63,7 @@
 							<ul>
 								<li><a id="toLogin" class="item-link list-button">Sign In</a></li>
 							</ul>
-							<!-- <div class="list-block-labe">Some text with login
-								information.</div> -->
+							<div class="list-block-labe">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</div>
 						</div>
 					</form>
 				</div>
