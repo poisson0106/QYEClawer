@@ -1,7 +1,13 @@
 package com.sjw.bookcapture.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjw.bookcapture.pojo.UserPojo;
 import com.sjw.bookcapture.service.AuthenticationService;
 
@@ -27,6 +34,8 @@ public class AuthenticationController {
 	
 	@Autowired
 	ModelAndView mv;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value="loginInit",method=RequestMethod.GET)
 	public ModelAndView initialOneUser() throws Exception{
@@ -55,15 +64,20 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value="loginOneUser",method=RequestMethod.POST)
-	public ModelAndView loginOneUser(HttpServletRequest request) throws Exception{
+	public void loginOneUser(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authentication = authManager.authenticate(authRequest); //调用loadUserByUsername
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-	    mv.setViewName("index");
-		return mv;
+	    ObjectMapper objMapper = new ObjectMapper();
+	    Map<String,String> rtnVal = new HashMap<String,String>();
+	    rtnVal.put("ajaxsts", "success");
+	    rtnVal.put("targetUrl", "test.html");
+	    logger.info(objMapper.writeValueAsString(rtnVal));
+	    response.getWriter().write(objMapper.writeValueAsString(rtnVal));
+	   /* mv.setViewName("services");*/
 	}
 	
 	@RequestMapping(value="loginOneUser",method=RequestMethod.GET)

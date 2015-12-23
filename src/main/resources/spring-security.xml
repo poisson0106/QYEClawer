@@ -15,7 +15,7 @@
     
     <http disable-url-rewriting="false" auto-config="true">
 		<!-- <headers disabled="true"/> -->
-		<!-- <csrf disabled="true"/> -->
+		<csrf disabled="true"/>
 		
 		<access-denied-handler error-page="/authFailed" />
 		<!-- login part -->
