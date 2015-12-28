@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +65,8 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value="loginOneUser",method=RequestMethod.POST)
-	public void loginOneUser(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	@ResponseBody
+	public String loginOneUser(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
@@ -74,9 +76,10 @@ public class AuthenticationController {
 	    ObjectMapper objMapper = new ObjectMapper();
 	    Map<String,String> rtnVal = new HashMap<String,String>();
 	    rtnVal.put("ajaxsts", "success");
-	    rtnVal.put("targetUrl", "test.html");
+	    rtnVal.put("targetUrl", "main.html");
 	    logger.info(objMapper.writeValueAsString(rtnVal));
-	    response.getWriter().write(objMapper.writeValueAsString(rtnVal));
+	    //response.getWriter().write(objMapper.writeValueAsString(rtnVal));
+	    return objMapper.writeValueAsString(rtnVal);
 	   /* mv.setViewName("services");*/
 	}
 	

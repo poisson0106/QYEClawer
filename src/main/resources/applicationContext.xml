@@ -43,6 +43,10 @@
     	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
     
+    <bean id="weiboDao" class="com.sjw.bookcapture.daoImpl.WeiboDaoImpl">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
     <bean id="mv" class="org.springframework.web.servlet.ModelAndView"></bean>
     
 </beans>
