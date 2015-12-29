@@ -1,6 +1,8 @@
 package com.sjw.bookcapture.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,10 @@ public class WeiboController {
 	public String getCertainWeibo(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		int begin = Integer.parseInt(request.getParameter("begin"));
 		int end = Integer.parseInt(request.getParameter("end"));
-		List<WeiboPojo> weiboCol = weiboService.getCertainWeiboService(begin, end);
+		Map<String,Integer> limits = new HashMap<String,Integer>();
+		limits.put("begin", begin);
+		limits.put("end", end);
+		List<WeiboPojo> weiboCol = weiboService.getCertainWeiboService(limits);
 		ObjectMapper objMapper = new ObjectMapper();
 		return objMapper.writeValueAsString(weiboCol);
 	}

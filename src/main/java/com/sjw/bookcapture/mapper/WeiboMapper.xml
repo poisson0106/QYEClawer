@@ -12,7 +12,7 @@
 	</insert>
 	
 	<select id="getCertainWeibo" parameterType="map" resultType="Weibo">
-		SELECT * FROM QY_WEIBO LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+		SELECT * FROM QY_SINA LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
 	</select>
 	
 </mapper>

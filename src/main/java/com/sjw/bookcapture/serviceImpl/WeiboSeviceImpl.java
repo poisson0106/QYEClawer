@@ -1,6 +1,7 @@
 package com.sjw.bookcapture.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,8 @@ public class WeiboSeviceImpl implements WeiboService {
 	WeiboDao weiboDao;
 
 	@Override
-	public List<WeiboPojo> getCertainWeiboService(int begin, int end) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<WeiboPojo> getCertainWeiboService(Map<String,Integer> limits) {
+		return weiboDao.getCertainWeiboDao(limits);
 	}
 
 }
