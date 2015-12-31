@@ -22,7 +22,7 @@ public class WeiboController {
 	@Autowired
 	WeiboService weiboService;
 	
-	@RequestMapping(value="getWeibo",method=RequestMethod.GET)
+	@RequestMapping(value="getWeibo",method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getCertainWeibo(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		int begin = Integer.parseInt(request.getParameter("begin"));
@@ -32,6 +32,7 @@ public class WeiboController {
 		limits.put("end", end);
 		List<WeiboPojo> weiboCol = weiboService.getCertainWeiboService(limits);
 		ObjectMapper objMapper = new ObjectMapper();
+		response.setCharacterEncoding("UTF-8");
 		return objMapper.writeValueAsString(weiboCol);
 	}
 }

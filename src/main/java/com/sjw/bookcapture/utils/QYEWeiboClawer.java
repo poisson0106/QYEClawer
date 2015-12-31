@@ -29,12 +29,14 @@ public class QYEWeiboClawer {
 	
 	public List<WeiboPojo> catchAndUpdateWeibo(String url) throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("Apache", "3471694940278.2993.1448354185283");
-		map.put("SINAGLOBAL", "6702268402505.439.1448353421592");
-		map.put("SUB", "_2AkMhbACDf8NhqwJRmPoTymnlbYRwzQ7EiebDAHzsJxJTHm4u7M8wcOHmKE4EfS4tzNF9Cwn3U8Jo");
-		map.put("SUBP", "0033WrSXqPxfM72-Ws9jqgMF55529P9D9WhwCWVJKfWRf2Ua-kbGFjB4");
-		map.put("ULV", "1448354185285:3:3:3:3471694940278.2993.1448354185283:1448354061104");
-		map.put("YF-Page-G0", "59104684d5296c124160a1b451efa4ac");
+		map.put("Apache", "33265462990384.549.1451524247681");
+		map.put("SINAGLOBAL", "3265462990384.549.1451524247681");
+		map.put("SUB", "_2AkMhDk45dcPhrAFRnf4czW_jbo9QjU2o4IeudBeNSXBSdVkYgV8OxAoJ23x-XN6h2ka7sDAGUgd9bJ_QKgDmi-GiPiSjxvTfH9LSFlIu");
+		map.put("SUBP", "0033WrSXqPxfM72wWs9jqgMF55529P9D9Wh4ZfFZ1siaIi9qD4RW.nA_5JpV8NUfdsLydNxDqg4oqgL59cfyIg7Vqcv_");
+		map.put("SUHB", "0103T7zRTWqVVH");
+		map.put("ULV", "1451524247703:12:4:2:3265462990384.549.1451524247681:1451465997561");
+		map.put("UOR", "os.51cto.com,widget.weibo.com,www.baidu.com");
+		map.put("YF-Page-G0", "046bedba5b296357210631460a5bf1d2");
 		map.put("_s_tentry", "-");
 		Connection conn = Jsoup.connect(url);
 		Response response = conn.cookies(map).method(Method.GET).execute();
@@ -120,11 +122,18 @@ public class QYEWeiboClawer {
 				fromAndTimeEls = thisEl.select(".WB_from.S_txt2");
 			
 			//Time information
+			
 			timeEl = fromAndTimeEls.first().child(0);
 			thisWeibo.setPostDate(timeEl.attr("title"));
 			// From information
-			fromEl = fromAndTimeEls.first().child(1);
-			thisWeibo.setPostBy(fromEl.html());
+			if(fromAndTimeEls.first().childNodeSize()>1){
+				fromEl = fromAndTimeEls.first().child(1);
+				thisWeibo.setPostBy(fromEl.html());
+			}
+			else{
+				thisWeibo.setPostBy("未知设备");
+			}
+			
 		}
 		
 		//Get the good number,forward num and comment num
