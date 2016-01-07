@@ -8,4 +8,5 @@ import com.sjw.bookcapture.pojo.ZhihuPojo;
 public interface DataDao {
 	public void catchZhihuDataDao(List<ZhihuPojo> thisList) throws Exception;
 	public void catchWeiboDataDao(List<WeiboPojo> thisList) throws Exception;
+	public void catchWeiboRefDataDao(List<WeiboPojo> refList) throws Exception;
 }

@@ -27,6 +27,8 @@ public class QYEWeiboClawer {
 	
 	private List<WeiboPojo> newWeibo;
 	
+	private List<WeiboPojo> newRefWeibo;
+	
 	public List<WeiboPojo> catchAndUpdateWeibo(String url) throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("Apache", "33265462990384.549.1451524247681");
@@ -60,6 +62,7 @@ public class QYEWeiboClawer {
 			Document ndoc = Jsoup.parse(bd);
 			Elements els = ndoc.select(".WB_cardwrap.WB_feed_type.S_bg2");
 			newWeibo = new ArrayList<WeiboPojo>();
+			newRefWeibo = new ArrayList<WeiboPojo>();
 			Iterator<Element> i = els.iterator();
 			while(i.hasNext()){
 				Element thisEl = i.next();
@@ -67,7 +70,7 @@ public class QYEWeiboClawer {
 			}
 		}
 		
-		this.dataService.catchWeiboDataService(newWeibo);
+		this.dataService.catchWeiboDataService(newWeibo,newRefWeibo);
 		
 		return newWeibo;
 		
@@ -169,7 +172,10 @@ public class QYEWeiboClawer {
 			thisWeibo.setRefWeibo(WeiboType.ORIGINAL.getNum());
 		}
 		
-		newWeibo.add(thisWeibo);			
+		if(thisWeibo.getRefWeibo()==WeiboType.FWCOMMENT.getNum()||thisWeibo.getRefWeibo()==WeiboType.ORIGINAL.getNum())
+			newWeibo.add(thisWeibo);
+		else if(thisWeibo.getRefWeibo()==WeiboType.FWCONTENT.getNum())
+			newRefWeibo.add(thisWeibo);
 		return uid;
 	}
 	

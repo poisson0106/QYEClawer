@@ -1,11 +1,17 @@
 package com.sjw.bookcapture.serviceImpl;
 
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjw.bookcapture.dao.WeiboDao;
 import com.sjw.bookcapture.pojo.WeiboPojo;
 import com.sjw.bookcapture.service.WeiboService;
@@ -16,8 +22,20 @@ public class WeiboSeviceImpl implements WeiboService {
 	WeiboDao weiboDao;
 
 	@Override
-	public List<WeiboPojo> getCertainWeiboService(Map<String,Integer> limits) {
-		return weiboDao.getCertainWeiboDao(limits);
+	public String getCertainWeiboService(Map<String,Integer> limits) throws JsonProcessingException {
+		List<WeiboPojo> thisList = weiboDao.getCertainWeiboDao(limits);
+		List<String> limit=thisList.stream()
+				.filter(pojo->pojo.getRefWeibo()==1)
+				.map(pojo->pojo.getUid())
+				.collect(Collectors.toList());
+		List<WeiboPojo> refList = weiboDao.getCertainWeiboRefDao(limit);
+		Map<String,WeiboPojo> ref = refList.stream().collect(Collectors.toMap(WeiboPojo::getUid, pojo->pojo));
+		Map<String,Object> tmp = new HashMap<String,Object>();
+		tmp.put("o", thisList);
+		tmp.put("m", ref);
+		ObjectMapper objMapper = new ObjectMapper();
+		return objMapper.writeValueAsString(tmp);
+		
 	}
 
 }

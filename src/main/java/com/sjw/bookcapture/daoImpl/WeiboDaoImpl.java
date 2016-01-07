@@ -15,4 +15,9 @@ public class WeiboDaoImpl extends SqlSessionDaoSupport implements WeiboDao {
 		return this.getSqlSession().selectList("getCertainWeibo", limits);
 	}
 
+	@Override
+	public List<WeiboPojo> getCertainWeiboRefDao(List<String> limit) {
+		return this.getSqlSession().selectList("getCertainRefWeibo", limit);
+	}
+
 }

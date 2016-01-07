@@ -7,4 +7,5 @@ import com.sjw.bookcapture.pojo.WeiboPojo;
 
 public interface WeiboDao {
 	public List<WeiboPojo> getCertainWeiboDao(Map<String,Integer> limits);
+	public List<WeiboPojo> getCertainWeiboRefDao(List<String> limit);
 }

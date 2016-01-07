@@ -11,8 +11,24 @@
 		</foreach>
 	</insert>
 	
+	<insert id="insertNewWeiboRefData" parameterType="java.util.List">
+		REPLACE INTO QY_SINA_REF
+		(NAME,INFO,PICHREF,POSTDATE,COMMENTSNUM,GOODNUM,FORWARDNUM,POSTBY,REFWEIBO,UID) VALUES 
+		<foreach collection="list" item="i" separator="," index="">
+		(#{i.name,jdbcType=VARCHAR},#{i.info,jdbcType=VARCHAR},#{i.picHref,jdbcType=VARCHAR},#{i.postDate,jdbcType=VARCHAR}
+		,#{i.commentsNum,jdbcType=INTEGER},#{i.goodNum,jdbcType=INTEGER},#{i.forwardNum,jdbcType=INTEGER},#{i.postBy,jdbcType=VARCHAR}
+		,#{i.refWeibo,jdbcType=VARCHAR},#{i.uid,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	
 	<select id="getCertainWeibo" parameterType="map" resultType="Weibo">
 		SELECT * FROM QY_SINA LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getCertainRefWeibo" parameterType="list" resultType="Weibo">
+		SELECT * FROM QY_SINA_REF WHERE UID IN (
+			<foreach collection="list" item="i" separator=",">#{i,jdbcType=VARCHAR}</foreach>
+		)
 	</select>
 	
 </mapper>

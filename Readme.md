@@ -3,6 +3,7 @@
 A tool used to scratch the information in Zhihu and Weibo for someone. Maybe it will add new function in the future. Although it has been useless already before it's finished. Since the original target can't be completed forever.......TOT
 </div>
 <h3>Today's update</h3>
+<li>01.07 2016's first commitment. Made a big change in get weibo part. Split the weibo table from two table. One is own table, another is forwarded table. Still have problem in display in weibo page caused by js_compare. Haven't had a good new year holiday. Little missing. No reply.</li>
 <li>12.31 Updated the cookie information. There is some problem if always catching the cookie manually. And added a validation to get device(It seems that some device information can be omitted. Wired). Ready to 2016. Although it seems that the situation won't go fine immediately.</li>
 <li>12.29 Removed the www folder and split it to a independent project QYEInterface. Fixed the bug in the Weibo catch function. Faced a big challenge in template7 part. Can't use the {{}} expression. Try to solve the problem.</li>
 <li>12.28 Added the Weibo phrase today. Have some problem in the limitation of amount in weibo function. Since it may cause to scratch a forward weibo without orgin weibo. Still have some problems in framework7. And, not in good situation in these days. Low efficiency.</li>

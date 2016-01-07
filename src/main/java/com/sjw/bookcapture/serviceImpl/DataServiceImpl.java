@@ -20,8 +20,8 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public void catchWeiboDataService(List<WeiboPojo> thisList) throws Exception {
+	public void catchWeiboDataService(List<WeiboPojo> thisList,List<WeiboPojo> refList) throws Exception {
 		this.dataDao.catchWeiboDataDao(thisList);
-		
+		this.dataDao.catchWeiboRefDataDao(refList);
 	}
 }

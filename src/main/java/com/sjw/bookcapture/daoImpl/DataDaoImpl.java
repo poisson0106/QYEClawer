@@ -20,4 +20,10 @@ public class DataDaoImpl extends SqlSessionDaoSupport implements DataDao {
 		
 	}
 
+	@Override
+	public void catchWeiboRefDataDao(List<WeiboPojo> refList) throws Exception {
+		this.getSqlSession().insert("insertNewWeiboRefData",refList);
+		
+	}
+
 }
