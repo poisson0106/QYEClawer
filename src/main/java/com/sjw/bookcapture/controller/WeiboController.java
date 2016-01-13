@@ -31,8 +31,6 @@ public class WeiboController {
 		limits.put("begin", begin);
 		limits.put("end", end);
 		response.setCharacterEncoding("UTF-8");
-		String tmp =  weiboService.getCertainWeiboService(limits);
-		System.out.println("Test:"+tmp);
-		return tmp;
+		return weiboService.getCertainWeiboService(limits);
 	}
 }

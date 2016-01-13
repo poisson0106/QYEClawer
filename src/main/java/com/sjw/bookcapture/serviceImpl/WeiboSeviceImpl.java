@@ -30,11 +30,14 @@ public class WeiboSeviceImpl implements WeiboService {
 				.collect(Collectors.toList());
 		List<WeiboPojo> refList = weiboDao.getCertainWeiboRefDao(limit);
 		Map<String,WeiboPojo> ref = refList.stream().collect(Collectors.toMap(WeiboPojo::getUid, pojo->pojo));
-		Map<String,Object> tmp = new HashMap<String,Object>();
-		tmp.put("o", thisList);
-		tmp.put("m", ref);
+		Iterator<WeiboPojo> i = thisList.iterator();
+		while(i.hasNext()){
+			WeiboPojo w = i.next();
+			if(w.getRefWeibo()==1)
+				w.setRefWeiboDetail(ref.get(w.getUid()));
+		}
 		ObjectMapper objMapper = new ObjectMapper();
-		return objMapper.writeValueAsString(tmp);
+		return objMapper.writeValueAsString(thisList);
 		
 	}
 

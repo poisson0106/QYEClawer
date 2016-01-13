@@ -11,7 +11,14 @@ public class WeiboPojo {
 	private String postBy;
 	private int refWeibo;
 	private String uid;
+	private WeiboPojo refWeiboDetail;
 	
+	public WeiboPojo getRefWeiboDetail() {
+		return refWeiboDetail;
+	}
+	public void setRefWeiboDetail(WeiboPojo refWeiboDetail) {
+		this.refWeiboDetail = refWeiboDetail;
+	}
 	public String getUid() {
 		return uid;
 	}
